@@ -1,0 +1,2 @@
+# Размер баз данных и свободного места в них
+Get-MailboxDatabase -Status | select Name,DatabaseSize,AvailableNewMailboxSpace
