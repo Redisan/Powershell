@@ -1,0 +1,14 @@
+#Reset WSUSID Win7\Win2012R2
+net stop wuauserv
+reg Delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate /v SusClientId /f 
+reg Delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate /v SusClientIDValidation /f
+net start wuauserv
+wuauclt.exe /resetauthorization /detectnow
+
+#Reset WSUSID Win10\Win2016
+net stop wuauserv
+reg Delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate /v SusClientId /f 
+reg Delete HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\WindowsUpdate /v SusClientIDValidation /f
+net start wuauserv
+usoclient.exe startscan
+#(New-Object -ComObject Microsoft.Update.AutoUpdate).DetectNow()
