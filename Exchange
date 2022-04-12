@@ -1,2 +1,4 @@
 # Размер баз данных и свободного места в них
 Get-MailboxDatabase -Status | select Name,DatabaseSize,AvailableNewMailboxSpace
+# Создание списка адресов в адресной книге
+New-AddressList -Name "Компания" -RecipientFilter {((Alias -ne $null) -and (WindowsEmailAddress -like "*@company.ru"))}
