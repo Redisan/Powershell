@@ -2,3 +2,7 @@
 Get-MailboxDatabase -Status | select Name,DatabaseSize,AvailableNewMailboxSpace
 # Создание списка адресов в адресной книге
 New-AddressList -Name "Компания" -RecipientFilter {((Alias -ne $null) -and (WindowsEmailAddress -like "*@company.ru"))}
+# Статистика использования места в ящике
+Get-MailboxFolderStatistics UserLogin |ft name,foldersize –AutoSize
+# Очистка Dumpster в ящике
+Get-mailbox UserLogin | search-mailbox -searchquery “Subject:’*'” -DeleteContent –SearchDumpsterOnly
