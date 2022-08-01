@@ -1,0 +1,23 @@
+$File = c:\temp\activesync.csv
+$mbxs = get-casmailbox -Filter {HasActivesyncDevicePartnership -eq $true -and -not DisplayName -like "CAS_{*"}
+
+foreach ($mbx in $mbxs) {
+
+    $name = $mbx.name
+    $Devices = get-activesyncdevice -mailbox $mbx.identity
+
+    foreach ($device in $devices) {
+ 
+        $devicestatistic = $device | Get-ActiveSyncDeviceStatistics
+        New-Object -TypeName psobject -Property @{
+            Name = $($name)
+            FriendlyName = $Device.FriendlyName
+            DeviceOS = $Device.DeviceOS
+            DeviceModel = $($devicestatistic.devicemodel)
+            DevicePhoneNumber = $($devicestatistic.devicephonenumber)
+            DeviceID = $($devicestatistic.deviceid)
+            FirstSyncTime = $($devicestatistic.FirstSyncTime)
+            LastSuccessSync = $($devicestatistic.LastSuccessSync)
+            } | select Name, FriendlyName, DeviceOS, DeviceModel, DevicePhoneNumber, DeviceID, FirstSyncTime, LastSuccessSync | export-csv $File -Encoding Unicode -Append
+    }
+}
