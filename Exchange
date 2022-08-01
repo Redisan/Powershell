@@ -11,3 +11,7 @@ $Messages = Get-MessageTrackingLog –Sender "himiki@trehsosensky.com” -Start 
 $Messages| Select-Object Timestamp,Source,EventId,TotalBytes,Sender,{$_.recipients}, MessageSubject | Export-Csv -Path "C:\Temp\himiki.csv" -Encoding Unicode -Delimiter ";"
 # Найти путь к общей почтовой папке
 Get-MailPublicFolder mail@domain.ru | Get-PublicFolder
+# Поиск писем
+Get-Mailbox login | Search-Mailbox -SearchQuery 'Subject:"О предоставлении документов"' -TargetMailbox admin -TargetFolder "SearchFolder”
+Get-Mailbox login | Search-Mailbox -SearchQuery 'From:GimazislamovaN@avangard.ru' -TargetMailbox admin -TargetFolder "SearchFolder”
+
