@@ -12,6 +12,7 @@ $Messages| Select-Object Timestamp,Source,EventId,TotalBytes,Sender,{$_.recipien
 # Найти путь к общей почтовой папке
 Get-MailPublicFolder mail@domain.ru | Get-PublicFolder
 # Поиск писем
-Get-Mailbox login | Search-Mailbox -SearchQuery 'Subject:"О предоставлении документов"' -TargetMailbox admin -TargetFolder "SearchFolder”
-Get-Mailbox login | Search-Mailbox -SearchQuery 'From:GimazislamovaN@avangard.ru' -TargetMailbox admin -TargetFolder "SearchFolder”
-
+Get-Mailbox login | Search-Mailbox -SearchQuery 'Subject:"Документы"' -TargetMailbox admin -TargetFolder "SearchFolder”
+Get-Mailbox login | Search-Mailbox -SearchQuery 'From:user@domain.ru' -TargetMailbox admin -TargetFolder "SearchFolder”
+# Удаление писем по критерию
+Get-Mailbox login | Search-Mailbox -SearchQuery 'Received:28/09/2022 AND from:user@domain.ru' -DeleteContent -force
