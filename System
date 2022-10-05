@@ -1,0 +1,2 @@
+#Fix GPO error: Display names for some settings cannot be found. You might be able to resolve this issue by updating the .ADM files used by Group Policy Management.
+#Remove-GPRegistryValue -name "Group Policy Name" -key "HKLM\SYSTEM\CurrentControlSet\Services\Eventlog\Security" -ValueName AutoBackupLogFiles
