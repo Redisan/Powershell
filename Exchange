@@ -16,3 +16,18 @@ Get-Mailbox login | Search-Mailbox -SearchQuery 'Subject:"Документы"' -
 Get-Mailbox login | Search-Mailbox -SearchQuery 'From:user@domain.ru' -TargetMailbox admin -TargetFolder "SearchFolder”
 # Удаление писем по критерию
 Get-Mailbox login | Search-Mailbox -SearchQuery 'Received:28/09/2022 AND from:user@domain.ru' -DeleteContent -force
+#Поиск в писем задержанных антиспамом
+Get-AgentLog | ?{$_.Agent -eq 'Content Filter Agent'}
+# Отключить встроенный антиспам
+Set-ContentFilterConfig -Enabled $false
+#или
+Get-Mailbox -Database <Mailbox Database Name> | Set-MailboxJunkEmailConfiguration -Enabled $False
+# Удалить встроенный антиспам: 
+# In Exchange Management Shell (EMS)
+cd "C:\Program Files\Microsoft\Exchange Server\Vxx\Scripts"
+.\uninstall-antispamagents.ps1
+Restart-Service MSExchangeTransport
+# Установить Антиспам
+cd "C:\Program Files\Microsoft\Exchange Server\Vxx\Scripts"
+.\install-AntispamAgents.ps1
+Restart-Service MSExchangeTransport
